@@ -56,6 +56,7 @@ export default class Lineup extends React.Component {
       var suspectAttrs = {
         key : i,
         guilty : s.guilty,
+        suspect : s.suspect,
         count : this.state.witnesses.filter(w => {
           return w > s.bottom && w <= s.top
         }).length

@@ -14,7 +14,8 @@ export function generateSuspects(guilty, fixup) {
   for(let i=0;i<6;++i) {
     data.push({
       guilty : !!(guilty && i===0),
-      fixup : !!(fixup && i===1)
+      fixup : !!(fixup && i===1),
+      suspect : (fixup && !guilty) ? i===1 : i===0
     });
   }
   data.sort(() => Math.random() - 0.5);

@@ -7,7 +7,11 @@ export default class Suspect extends React.Component {
     };
   }
   render() {
-    return (<div>
+    var divProps = {
+      className : this.props.suspect ? 'suspect' : ''
+    };
+
+    return (<div {...divProps}>
       Yo
       <span>{this.props.count}</span>
     </div>);
