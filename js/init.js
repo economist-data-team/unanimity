@@ -35,19 +35,24 @@ var Lineup = connect(function(state) {
 })(LineupRaw);
 
 function populate() {
-  store.dispatch(generateSuspects());
+  store.dispatch(generateSuspects(Math.round(Math.random())));
+}
+function populateFixup() {
+  store.dispatch(generateSuspects(false, true));
+}
+function reveal() {
+  store.dispatch(revealSuspects());
 }
 
 class Chart extends ChartContainer {
-  populate() {
-    populate();
-  }
   render() {
     return(
       <div className='chart-container'>
         <Header title="The paradox of unanimity" subtitle="Also to come"/>
         <Lineup />
-        <button onClick={this.populate}>Suspects</button>
+        <button onClick={populate}>Suspects</button>
+        <button onClick={populateFixup}>FixUp</button>
+        <button onClick={reveal}>Reveal</button>
         <Footer source="To come" />
       </div>
     );
