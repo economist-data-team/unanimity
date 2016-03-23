@@ -16,13 +16,17 @@ import LineupRaw from './lineup.js';
 
 import chroma from 'chroma-js';
 
-import { createStore } from 'redux';
+import { createStore, compose } from 'redux';
 import { connect, Provider } from 'react-redux';
 
-import { updateData } from './actions.js';
+import { updateData, generateSuspects } from './actions.js';
 import updateState from './reducers.js'
 
-var store = createStore(updateState);
+// var store = createStore(updateState);
+const DEBUGCREATESTORE = compose(
+  window.devToolsExtension && window.devToolsExtension() || (f => f)
+)(createStore);
+var store = DEBUGCREATESTORE(updateState);
 
 var Lineup = connect(function(state) {
   return {
@@ -30,12 +34,20 @@ var Lineup = connect(function(state) {
   };
 })(LineupRaw);
 
+function populate() {
+  store.dispatch(generateSuspects());
+}
+
 class Chart extends ChartContainer {
+  populate() {
+    populate();
+  }
   render() {
     return(
       <div className='chart-container'>
         <Header title="The paradox of unanimity" subtitle="Also to come"/>
         <Lineup />
+        <button onClick={this.populate}>Suspects</button>
         <Footer source="To come" />
       </div>
     );

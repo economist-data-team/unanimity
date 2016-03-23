@@ -7,14 +7,11 @@ var initialState = {
 };
 
 var dataReducer = generateReducer(initialState.data, UPDATE_DATA);
-
-function suspectsReducer(state, action) {
-  if(action !== UPDATE_SUSPECTS) { return state; }
-
-}
+var suspectsReducer = generateReducer(initialState.suspects, UPDATE_SUSPECTS);
 
 export default function updateState(state = initialState, action) {
   return {
-    data : dataReducer(state.data, action)
+    data : dataReducer(state.data, action),
+    suspects : suspectsReducer(state.suspects, action)
   };
 }

@@ -1,5 +1,6 @@
 export const UPDATE_DATA = 'UPDATE_DATA';
 export const UPDATE_SUSPECTS = 'UPDATE_SUSPECTS';
+export const SUSPECT_REVEAL = 'SUSPECT_REVEAL';
 
 export function updateData(data) {
   return {
@@ -8,16 +9,30 @@ export function updateData(data) {
   }
 }
 
-export function generateSuspects(guilty) {
-  var suspects = [];
+export function generateSuspects(guilty, fixup) {
+  var data = [];
   for(let i=0;i<6;++i) {
-    suspects.push({
-      guilty : guilty && i===0
+    data.push({
+      guilty : !!(guilty && i===0),
+      fixup : !!(fixup && i===1)
     });
   }
-  suspects.sort(() => Math.random() - 0.5)
+  data.sort(() => Math.random() - 0.5);
   return {
     type : UPDATE_SUSPECTS,
-    suspects
+    data
+  }
+}
+
+export function hideSuspects() {
+  return {
+    type : SUSPECT_REVEAL,
+    reveal : false
+  };
+}
+export function revealSuspects() {
+  return {
+    type : SUSPECT_REVEAL,
+    reveal : true
   }
 }
